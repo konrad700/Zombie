@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-Based Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-template-rows: repeat(5, 50px);
+            gap: 5px;
+            justify-content: center;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .player {
+            background-color: lightblue;
+        }
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Move the Character</h2>
+    <div id="grid"></div>
+    <p><strong>Position:</strong> <span id="position">[2, 2]</span></p>
+
+    <button onclick="move('north')">Go North</button><br>
+    <button onclick="move('west')">Go West</button>
+    <button onclick="move('east')">Go East</button><br>
+    <button onclick="move('south')">Go South</button>
+
+    <script>
+        const size = 5;
+        let playerPosition = { x: 2, y: 2 };
+
+        function drawGrid() {
+            let grid = document.getElementById("grid");
+            grid.innerHTML = ""; 
+
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    let cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    if (x === playerPosition.x && y === playerPosition.y) {
+                        cell.classList.add("player");
+                        cell.textContent = "P";
+                    }
+                    grid.appendChild(cell);
+                }
+            }
+        }
+
+        function move(direction) {
+            if (direction === "north" && playerPosition.y > 0) {
+                playerPosition.y -= 1;
+            } else if (direction === "south" && playerPosition.y < size - 1) {
+                playerPosition.y += 1;
+            } else if (direction === "west" && playerPosition.x > 0) {
+                playerPosition.x -= 1;
+            } else if (direction === "east" && playerPosition.x < size - 1) {
+                playerPosition.x += 1;
+            } else {
+                alert("You can't move that way!");
+            }
+
+            document.getElementById("position").textContent = `[${playerPosition.x}, ${playerPosition.y}]`;
+            drawGrid();
+        }
+
+        drawGrid(); 
+    </script>
+
+</body>
+</html>
