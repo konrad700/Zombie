@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zombie Survival</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+        #game-output {
+            border: 1px solid white;
+            padding: 10px;
+            width: 50%;
+            margin: auto;
+            min-height: 50px;
+        }
+        input {
+            margin-top: 10px;
+            width: 50%;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zombie Survival</h1>
+    <p>Type commands like "move left", "attack", or "run".</p>
+    <div id="game-output">The game begins...</div>
+    <input type="text" id="command-input" placeholder="Enter a command..." onkeydown="handleKey(event)">
+    
+    <script>
+        function handleKey(event) {
+            if (event.key === "Enter") {
+                let command = document.getElementById("command-input").value.toLowerCase();
+                let output = document.getElementById("game-output");
+
+                if (command.includes("move")) {
+                    output.innerHTML = "You move cautiously.";
+                } else if (command.includes("attack")) {
+                    output.innerHTML = "You swing your weapon at a zombie!";
+                } else if (command.includes("run")) {
+                    output.innerHTML = "You sprint away from danger!";
+                } else {
+                    output.innerHTML = "Command not recognized. Try 'move', 'attack', or 'run'.";
+                }
+
+                document.getElementById("command-input").value = ""; // Clear input
+            }
+        }
+    </script>
+</body>
+</html>
